@@ -8,8 +8,7 @@ ciano='\033[0;36m'
 fim='\033[0m'
 seta='\e[32;1m-->\e[m'
 
-# Tela de boas vindas
-
+clear
 echo -e "${seta} ${ciano}Bem vindo a instalação e configuração do zsh${fim}"
 sleep 2s
 
@@ -31,17 +30,6 @@ else
     echo -e "${vermelho}Falhou!${fim}"
 fi
 
-echo -e "${seta} ${ciano}Instalando o Oh My Zsh${fim}"
-sleep 2s
-if sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-then
-    echo -e "${verde}Sucesso!${fim}"
-    exit 0
-else
-    echo -e "${vermelho}Falhou!${fim}"
-    exit 1
-fi
-
 echo -e "${ciano}Mudando o bash pelo zsh para $(whoami)${fim}"
 if sudo usermod -s /usr/bin/zsh $(whoami)
 then
@@ -57,6 +45,8 @@ then
 else
     echo -e "${vermelho}Falhou!${fim}"
 fi
+
+source ohmyzsh.sh
 
 echo -e "${ciano}Instalando o syntax-highlighting${fim}"
 sleep 2s
@@ -88,7 +78,7 @@ fi
 echo -e "${ciano}Baixando e instalando o fzf${fim}"
 sleep 2s
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
-echo "y"
-echo "y"
-echo "y"
+echo y
+echo y
+echo y
 
