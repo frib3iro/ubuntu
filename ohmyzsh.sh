@@ -10,9 +10,5 @@ seta='\e[32;1m-->\e[m'
 
 echo -e "${seta} ${ciano}Instalando o Oh My Zsh${fim}"
 sleep 2s
-if sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)" && exit
-then
-	echo -e "${verde}Sucesso!${fim}"
-else
-	echo -e "${vermelho}Falhou!${fim}"
-fi
+wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+yes n | sh install.sh && exit
