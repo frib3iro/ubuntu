@@ -33,6 +33,10 @@ else
     echo -e "${seta} ${amarelo}Arquivo não existe!${fim}"
 fi
 
+echo -e "${seta} ${ciano}Instalando KVM no Ubuntu${fim}"
+sleep 2
+sh ./virtmanager.sh
+
 echo -e "${seta} ${ciano}Instalando o Git${fim}"
 sleep 2
 sudo apt install git -y

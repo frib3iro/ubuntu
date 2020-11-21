@@ -9,6 +9,15 @@ ciano='\033[0;36m'
 fim='\033[0m'
 seta='\e[32;1m-->\e[m'
 
+echo "${seta} ${ciano}Extraindo arquivos${fim}"
+sleep 2
+if unzip /home/fabio/ubuntu/vbz.zip && rm vbz.zip
+then
+    echo "${seta} ${verde}Sucesso!${fim}"
+else
+    echo "${seta} ${vermelho}Falhou!${fim}"
+fi
+
 echo "${seta} ${ciano}Copiando .zshrc para /root${fim}"
 sleep 2
 if sudo cp /home/fabio/ubuntu/.zshrc /home/fabio && sudo cp /home/fabio/.zshrc /root
