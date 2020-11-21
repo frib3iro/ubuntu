@@ -8,7 +8,6 @@ ciano='\033[0;36m'
 fim='\033[0m'
 seta='\e[32;1m-->\e[m'
 
-echo -e "${seta} ${ciano}Instalando o Oh My Zsh${fim}"
-sleep 2s
+# Instalando o Oh-My-Zsh
 wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 yes n | sh install.sh && exit

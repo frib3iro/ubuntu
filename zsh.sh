@@ -8,97 +8,78 @@ ciano='\033[0;36m'
 fim='\033[0m'
 seta='\e[32;1m-->\e[m'
 
-clear
-echo -e "${seta} ${ciano}Bem vindo a instalação e configuração do zsh${fim}"
-sleep 3s
-
-echo -e "${seta} ${ciano}Atualizando...${fim}"
-sleep 3s
-if sudo apt update && sudo apt upgrade -y
-then
-   echo -e "${verde}Sucesso!${fim}"
-else
-   echo -e "${vermelho}Falhou!${fim}"
-fi
-clear
-
-echo -e "${seta} ${ciano}Instalando o ZSH${fim}"
-sleep 3s
+# Instalando o ZSH
 if sudo apt install zsh -y
 then
-   echo -e "${verde}Sucesso!${fim}"
+    echo "${seta} ${verde}Sucesso!${fim}"
 else
-   echo -e "${vermelho}Falhou!${fim}"
+    echo "${seta} ${vermelho}Falhou!${fim}"
 fi
-clear
 
-echo -e "${seta} ${ciano}Instalando o Oh My Zsh${fim}"
-sleep 2s
+echo "${seta} ${ciano}Instalando o Oh My Zsh${fim}"
 if [ -d "/home/fabio/.oh-my-zsh" ]
 then
-    echo -e "${vermelho}O diretório existe e será excluído!${fim}"
+    echo "${seta} ${vermelho}O diretório existe e será excluído!${fim}"
     rm -rf /home/fabio/.oh-my-zsh
-    echo -e "${verde}Instalando o Oh My Zsh!${fim}"
     sh ./ohmyzsh.sh
 else
-    echo -e "${vermelho}O diretório não existe e será criado!${fim}"
-    echo -e "${verde}Instalando o Oh My Zsh!${fim}"
+    echo "${seta} ${vermelho}O diretório não existe e será criado!${fim}"
     sh ./ohmyzsh.sh
 fi
-clear
 
-echo -e "${ciano}Mudando o bash pelo zsh para $(whoami)${fim}"
-sleep 3s
-if sudo usermod -s /usr/bin/zsh $(whoami)
+echo "${seta} ${ciano}Mudando o bash pelo zsh para $(whoami)${fim}"
+sleep 2
+if sudo usermod -s /usr/bin/zsh $(whoami) > /dev/null 2>&1
 then
-   echo -e "${verde}Sucesso!${fim}"
+    echo "${seta} ${verde}Sucesso!${fim}"
 else
-   echo -e "${vermelho}Falhou!${fim}"
+    echo "${seta} ${vermelho}Falhou!${fim}"
 fi
-clear
 
-echo -e "${ciano}Mudando o bash pelo zsh para root${fim}"
-sleep 3s
-if sudo usermod -s /usr/bin/zsh root
+echo "${seta} ${ciano}Mudando o bash pelo zsh para root${fim}"
+sleep 2
+if sudo usermod -s /usr/bin/zsh root > /dev/null 2>&1
 then
-   echo -e "${verde}Sucesso!${fim}"
+    echo "${seta} ${verde}Sucesso!${fim}"
 else
-   echo -e "${vermelho}Falhou!${fim}"
+    echo "${seta} ${vermelho}Falhou!${fim}"
 fi
-clear
 
-echo -e "${ciano}Instalando o syntax-highlighting${fim}"
-sleep 3s
-if sudo apt install zsh-syntax-highlighting -y
+echo "${seta} ${ciano}Instalando o syntax-highlighting${fim}"
+sleep 2
+if git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 then
-   echo -e "${verde}Sucesso!${fim}"
+    echo "${seta} ${verde}Sucesso!${fim}"
 else
-   echo -e "${vermelho}Falhou!${fim}"
+    echo "${seta} ${vermelho}Falhou!${fim}"
 fi
-clear
 
-
-echo -e "${ciano}Habilitando a configuração de Syntax Highlighting no zsh${fim}"
-sleep 3s
-if echo "source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc
+echo "${seta} ${ciano}Habilitando a configuração de Syntax Highlighting no zsh${fim}"
+sleep 2
+if sed -i 's/plugins=()/plugins=(git sudo zsh-syntax-highlighting zsh-autosuggestions colored-man-pages)/' /home/fabio/.zshrc
 then
-   echo -e "${verde}Sucesso!${fim}"
+    echo "${seta} ${verde}Sucesso!${fim}"
 else
-   echo -e "${vermelho}Falhou!${fim}"
+    echo "${seta} ${vermelho}Falhou!${fim}"
 fi
-clear
 
-echo -e "${ciano}Instalando o Oh My Zsh-autosuggestion${fim}" 
-sleep 3s
-if sudo apt-get install zsh-autosuggestions -y
+echo "${seta} ${ciano}Instalando o Oh My Zsh-autosuggestion${fim}"
+sleep 2
+if git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 then
-   echo -e "${verde}Sucesso!${fim}"
+    echo "${seta} ${verde}Sucesso!${fim}"
 else
-   echo -e "${vermelho}Falhou!${fim}"
+    echo "${seta} ${vermelho}Falhou!${fim}"
 fi
-clear
 
-echo -e "${ciano}Baixando e instalando o fzf${fim}"
-sleep 3s
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/yes | .fzf/install
-clear
+echo "${seta} ${ciano}Instalando o fzf${fim}"
+sleep 2
+if [ -d "/home/fabio/.fzf" ]
+then
+    echo "${seta} ${vermelho}O diretório existe e será excluído!${fim}"
+    rm -rf /home/fabio/.fzf
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/yes | .fzf/install
+else
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/yes | .fzf/install
+fi
+
